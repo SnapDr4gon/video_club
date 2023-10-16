@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/users');
+const controller = require('../controllers/members');
 
 router.post('/', controller.create); //Crear
 
@@ -8,10 +8,10 @@ router.get('/', controller.list); //Leer
 
 router.get('/:id', controller.index); //Leer
 
-router.put('/:id', controller.replace); //Reemplazar completo
+router.put('/:id', controller.replace); //Reemplazar
 
-router.patch('/:id', controller.update);  //Actualizar
+router.patch('/:id', controller.update); //Actualizar
 
-router.delete('/:id', controller.destroy);  //Eliminar
+router.delete('/:id', controller.destroy); //Eliminar
 
 module.exports = router;
