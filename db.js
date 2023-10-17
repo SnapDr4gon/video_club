@@ -1,8 +1,11 @@
 //  Importacion de modulos
 const Sequelize = require('sequelize');
 const actorModel = require('./models/actor');
+const bookingModel = require('./models/booking');
+const copieModel = require('./models/copie');
 const directorModel = require('./models/director');
 const genreModel = require('./models/genre');
+const memberModel = require('./models/member');
 const movieModel = require('./models/movie');
 const movieActorModel = require('./models/movieActor');
 
@@ -27,8 +30,11 @@ const sequelize = new Sequelize('dbVideoClub', 'root', 'abcd1234', {
     el archivo ./models/actor.js por ejemplo
 */
 const Actor = actorModel(sequelize, Sequelize);
+const Booking = bookingModel(sequelize, Sequelize);
+const Copie = copieModel(sequelize, Sequelize);
 const Director = directorModel(sequelize, Sequelize);
 const Genre = genreModel(sequelize, Sequelize);
+const Member = memberModel(sequelize, Sequelize);
 const Movie = movieModel(sequelize, Sequelize);
 const MovieActor = movieActorModel(sequelize, Sequelize);
 
@@ -64,6 +70,28 @@ Movie.belongsToMany(Actor, {
     through: 'movies_actors'
 });
 
+// Una pelicula tiene muchas copias
+Movie.hasMany(Copie, {as: 'copies'});
+
+// Una copia solo puede tener una pelicula
+Copie.belongsTo(Movie, {as: 'movie'});
+
+// Un booking tiene una copia
+Booking.belongsTo(Copie, {as: 'copie'});
+
+// Una copia tiene varios bookings
+Copie.hasMany(Booking, {as: 'bookings'});
+
+// Un miembro puede tener varios bookings
+Member.hasMany(Booking, {as: 'bookings'});
+
+// Un booking solo tiene un miembro
+Booking.belongsTo(Member, {as: 'member'});
+
+
+
+
+
 /*
         Sincronizacion de la base de datos
     Se usa el metodo 'sync' para sincronizar, en el objeto de configuracion
@@ -80,7 +108,11 @@ sequelize.sync({
 //      Exportacion de modelos
 module.exports = {
     Actor,
+    Booking,
+    Copie,
     Director,
     Genre,
-    Movie
+    Member,
+    Movie,
+    MovieActor
 }
