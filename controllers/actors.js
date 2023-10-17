@@ -1,6 +1,5 @@
 const express = require('express');
 const { Actor, Movie } = require('../db');
-const movie = require('../models/movie');
 
 //post
 function create(req, res, next) {
@@ -16,7 +15,7 @@ function create(req, res, next) {
 
 //get
 function list(req, res, next) {
-    Actor.findAll({ include: ['movies'] })
+    Actor.findAll()
          .then(object => res.json(object))
          .catch(err => res.send(err));
 }

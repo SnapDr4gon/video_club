@@ -1,22 +1,8 @@
 const express = require('express');
-const { Member } = require('../db');
 
 //post
 function create(req, res, next) {
-    const name = req.body.name;
-    const lastName = req.body.lastName;
-    const address = req.body.address;
-    const phone = req.body.phone;
-    const status = req.body.status;
-
-    Member.create({
-        name: name,
-        lastName: lastName,
-        address: address,
-        phone: phone,
-        status: status
-    }).then(object => res.json(object))
-      .catch(err => res.send(err));
+    res.send('Members created');
 }
 
 //get

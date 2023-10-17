@@ -1,6 +1,5 @@
 const express = require('express');
 const { Movie, Actor } = require('../db');
-const actor = require('../models/actor');
 
 //post
 function create(req, res, next) {
