@@ -16,8 +16,9 @@ const movieActorModel = require('./models/movieActor');
     4) Objeto de configuracion ORM
 */
 
-const sequelize = new Sequelize('dbVideoClub', 'root', 'abcd1234', {
-    host: 'localhost',
+const sequelize = new Sequelize('railway', 'root', '3n3Sv7sBWt6AcYFZY1GJ', {
+    host: 'containers-us-west-81.railway.app',
+    port: 6874, // Puerto proporcionado por Railway
     dialect: 'mysql'
 });
 
