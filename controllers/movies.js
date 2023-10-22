@@ -85,7 +85,7 @@ function addActor(req, res, next) {
         Actor.findByPk(idActor).then(actor => {
             movie.addActor(actor);
             res.json(movie);
-        }).cathc(err => res.send(err));
+        }).catch(err => res.send(err));
     }).catch(err => res.send(err));
 }
 
@@ -98,3 +98,4 @@ module.exports = {
     destroy,
     addActor
 }
+
