@@ -7,12 +7,16 @@ function create(req, res, next) {
     const lastName = req.body.lastName;
     const phone = req.body.phone;
     const address = req.body.address;
+    const favoriteActors = req.body.favoriteActors;
+    const favoriteDirectors = req.body.favoriteDirectors;
 
     let member = new Member({
         name: name,
         lastName: lastName,
         phone: phone,
-        address: address
+        address: address,
+        favoriteActors: favoriteActors,
+        favoriteDirectors: favoriteDirectors
     });
 
     member.save()
@@ -31,8 +35,9 @@ function list(req, res, next) {
 
     const options = {
         page: page,
-        limit: 5
-    }
+        limit: 5,
+        populate: ["_favoriteActors", "_favoriteDirectors"]
+    };
 
     Member.paginate({}, options)
           .then(objects => res.status(200).json({
@@ -48,7 +53,7 @@ function list(req, res, next) {
 function index(req, res, next) {
     const id = req.params.id;
 
-    Member.findOne({ "_id" : id })
+    Member.findOne({ "_id" : id }).populate(["_favoriteActors", "_favoriteDirectors"])
           .then(object => res.status(200).json({
             message: `Information of the Member with id ${id}`,
             obj: object
@@ -66,12 +71,16 @@ function replace(req, res, next) {
     const lastName = req.body.lastName ? req.body.lastName : "";
     const phone = req.body.phone ? req.body.phone : "";
     const address = req.body.address ? req.body.address : "";
+    const favoriteActors = req.body.favoriteActors ? req.body.favoriteActors : [];
+    const favoriteDirectors = req.body.favoriteDirectors ? req.body.favoriteDirectors : [];
 
     let member = new Object({
         _name: name,
         _lastName: lastName,
         _phone: phone,
-        _address: address
+        _address: address,
+        _favoriteActors: favoriteActors,
+        _favoriteDirectors: favoriteDirectors
     });
 
     Member.findOneAndUpdate({ "_id" : id }, member, { new : true })
@@ -92,13 +101,17 @@ function update(req, res, next) {
     const lastName = req.body.lastName;
     const phone = req.body.phone;
     const address = req.body.address;
+    const favoriteActors = req.body.favoriteActors;
+    const favoriteDirectors = req.body.favoriteDirectors;
 
     let member = new Object();
 
     if (name) member._name = name;
     if (lastName) member._lastName = lastName;
     if (phone) member._phone = phone;
-    if (address) member.address = address;
+    if (address) member._address = address;
+    if (favoriteActors) member._favoriteActors = favoriteActors;
+    if (favoriteDirectors) member._favoriteDirectors = favoriteDirectors;
 
     Member.findOneAndUpdate({ "_id" : id }, member)
           .then(object => res.status(200).json({

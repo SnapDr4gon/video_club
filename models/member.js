@@ -12,16 +12,26 @@ const schema = mongoose.Schema({
         city: String,
         state: String,
         country: String
-    }
+    },
+    _favoriteActors: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Actor'
+    }],
+    _favoriteDirectors: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Director'
+    }]
 });
 
 class Member {
   
-    constructor(name, lastName, phone, address) {
+    constructor(name, lastName, phone, address, favoriteActors, favoriteDirectors) {
         this._name = name;
         this._lastName = lastName;
         this._phone = phone;
         this._address = address;
+        this._favoriteActors = favoriteActors;
+        this._favoriteDirectors = favoriteDirectors;
     }
 
     get name() {
@@ -54,6 +64,22 @@ class Member {
 
     set address(value) {
         this._address = value;
+    }
+
+    get favoriteActors() {
+        return this._favoriteActors;
+    }
+
+    set favoriteActors(value) {
+        this._favoriteActors = value;
+    }
+
+    get favoriteDirectors() {
+        return this._favoriteDirectors;
+    }
+
+    set favoriteDirectors(value) {
+        this._favoriteDirectors = value;
     }
 }
 
