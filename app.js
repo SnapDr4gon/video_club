@@ -16,6 +16,7 @@ const genresRouter = require('./routes/genres');
 const membersRouter = require('./routes/members');
 const copiesRouter = require('./routes/copies');
 const listsRouter = require('./routes/lists');
+const loansRouter = require('./routes/loans');
 
 var app = express();
 //  mongodb://<dbUser>?:<dbPass>?@<url>:<port>/<dbName>
@@ -56,6 +57,7 @@ app.use('/genres', genresRouter);
 app.use('/members', membersRouter);
 app.use('/copies', copiesRouter);
 app.use('/await', listsRouter);
+app.use('/loans', loansRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
