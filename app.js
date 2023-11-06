@@ -20,7 +20,7 @@ const loansRouter = require('./routes/loans');
 
 var app = express();
 //  mongodb://<dbUser>?:<dbPass>?@<url>:<port>/<dbName>
-const url = "mongodb://localhost:27017/video-club";
+const url = "mongodb://mongo:4Ba4GGHeGH22afD1G3GECab1Ed-fe--A@monorail.proxy.rlwy.net:54685";
 mongoose.connect(url);
 
 const db = mongoose.connection;
