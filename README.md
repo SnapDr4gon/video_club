@@ -29,7 +29,7 @@ npm install
 
 Ingrese en la siguiente liga para ver la aplicacion ejecutada:
 
-https://dbvideoclub-p09l4m1z.b4a.run/
+https://mongovideoclub-brdkdz1b.b4a.run/
 
 ## Licencia
 
