@@ -20,7 +20,7 @@ const loansRouter = require('./routes/loans');
 
 var app = express();
 //  mongodb://<dbUser>?:<dbPass>?@<url>:<port>/<dbName>
-const url = "mongodb://localhost:27017/video-club";
+const url = "mongodb://mongo:eCH-5EDdAdAfC6fhb5bggGaCe6A6b-EF@roundhouse.proxy.rlwy.net:56070/video-club";
 mongoose.connect(url);
 
 const db = mongoose.connection;
@@ -33,7 +33,7 @@ db.on('open', () => {
 // No se conecta
 db.on('error', () => {
   console.log("Connection Failed");
-})
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
