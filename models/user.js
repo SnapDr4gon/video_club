@@ -6,17 +6,24 @@ const schema = mongoose.Schema({
     _lastName: String,
     _email: String,
     _password: String,
-    _salt: String
+    _salt: String,
+    _profiles: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Profile'
+        }
+    ]
 });
 
 class User {
 
-    constructor(name, lastName, email, password, salt) {
+    constructor(name, lastName, email, password, salt, profiles) {
         this._name = name;
         this._lastName = lastName;
         this._email = email;
         this._password = password;
         this._salt = salt;
+        this._profiles;
     }
 
     get name() {
@@ -57,6 +64,14 @@ class User {
 
     set salt(value) {
         this._salt = value;
+    }
+
+    get profiles() {
+        return this._profiles;
+    }
+
+    set profiles(value) {
+        this._profiles = value;
     }
 }
 

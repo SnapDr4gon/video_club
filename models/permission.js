@@ -1,0 +1,36 @@
+const mongoose = require('mongoose');
+
+const schema = mongoose.Schema({
+    _description: String,
+    _type: {
+        type: String,
+        enum: ['CREATE', 'READ', 'UPDATE', 'DELETE']
+    }
+});
+
+class Permission {
+
+    constructor(description, type) {
+        this._description = description,
+        this._type = type
+    }
+
+    get description() {
+        return this._description;
+    }
+
+    set description(value) {
+        this._description = value;
+    }
+
+    get type() {
+        return this._type;
+    }
+
+    set type(value) {
+        this._type = value;
+    }
+}
+
+schema.loadClass(Permission);
+module.exports = mongoose.model('Permission', schema);

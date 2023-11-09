@@ -9,6 +9,7 @@ async function create(req, res, next) {
     const email = req.body.email;
     const password = req.body.password;
     let salt = await bcrypt.genSalt(10);
+    const profiles = req.body.profiles;
 
     const passwordHash = await bcrypt.hash(password, salt);
 
@@ -17,7 +18,8 @@ async function create(req, res, next) {
         lastName: lastName,
         email: email,
         password: passwordHash,
-        salt: salt
+        salt: salt,
+        profiles: profiles
     });
 
     user.save()
@@ -71,12 +73,14 @@ function replace(req, res, next) {
     const lastName = req.body.lastName ? req.body.lastName : "";
     const email = req.body.email ? req.body.email : "";
     const password = req.body.password ? req.body.password : "";
+    const profiles = req.body.profiles ? req.body.profiles : [];
 
     let user = new Object({
         _name: name,
         _lastName: lastName,
         _email: email,
-        _password: password
+        _password: password,
+        _profiles: profiles
     });
 
     User.findOneAndUpdate({ "_id" : id }, user, { new : true })
@@ -97,6 +101,7 @@ function update(req, res, next) {
     const lastName = req.body.lastName;
     const email = req.body.email;
     const password = req.body.password;
+    const profiles = req.body.profiles;
 
     let user = new Object();
 
@@ -104,6 +109,7 @@ function update(req, res, next) {
     if (lastName) user._lastName = lastName;
     if (email) user._email = email;
     if (password) user._password = password;
+    if (profiles) user._profiles = profiles;
 
     User.findOneAndUpdate({ "_id" : id}, user)
         .then(object => res.status(200).json({

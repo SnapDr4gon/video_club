@@ -5,7 +5,9 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const { expressjwt } = require('express-jwt');
 const mongoose = require('mongoose');
-const JwtKey = "259e0d524f7f9bb980f3fa9bcd6f987b";
+const config = require('config');
+const JwtKey = config.get('secret.key');
+const defineAbilities = require('./abilities');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -18,9 +20,13 @@ const copiesRouter = require('./routes/copies');
 const listsRouter = require('./routes/lists');
 const loansRouter = require('./routes/loans');
 
+//casl
+const profilesRouter = require('./routes/profiles');
+const permissionsRouter = require('./routes/permissions');
+
 var app = express();
 //  mongodb://<dbUser>?:<dbPass>?@<url>:<port>/<dbName>
-const url = "mongodb://mongo:4Ba4GGHeGH22afD1G3GECab1Ed-fe--A@monorail.proxy.rlwy.net:54685";
+const url = config.get('dbchain": "mongodb://localhost:27017/video-club');
 mongoose.connect(url);
 
 const db = mongoose.connection;
@@ -58,6 +64,10 @@ app.use('/members', membersRouter);
 app.use('/copies', copiesRouter);
 app.use('/await', listsRouter);
 app.use('/loans', loansRouter);
+
+//casl
+app.use('/profiles', profilesRouter);
+app.use('/permissions', permissionsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
