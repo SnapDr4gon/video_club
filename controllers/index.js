@@ -19,14 +19,14 @@ function login(req, res, next) {
                 bcrypt.hash(password, user.salt, (err, hash) => {
                     if (err) {
                         res.status(403).json({
-                            message: "Usuario y contraseña incorrecto",
+                            message: res.__('login.wrong'),
                             obj: err
                         });
                     }
 
                     if (hash === user.password) {
                         res.status(200).json({
-                            message: "Login ok",
+                            message: res.__('login.ok'),
                             // -> stateless: no se distingue entre los roles del usuario, por lo que no hay discriminacion
                             //    por lo que se usa el payload del toke para guardarlo pero en el token viene esa informacion
                             //    para discriminar
@@ -36,19 +36,19 @@ function login(req, res, next) {
                         });
                     } else {
                         res.status(403).json({
-                            message: "Usuario y contraseña incorrecto",
+                            message: res.__('login.wrong'),
                             obj: null
                         });
                     }
                 });
             } else {
                 res.status(403).json({
-                    message: "Usuario y contraseña incorrecto",
+                    message: res.__('login.wrong'),
                     obj: null
                 });
             }
         }).catch(ex => res.status(403).json({
-            message: "Usuario y contraseña incorrecta",
+            message: res.__('login.wrong'),
             obj: ex
         }));
 }

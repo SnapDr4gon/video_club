@@ -6,6 +6,7 @@ const logger = require('morgan');
 const { expressjwt } = require('express-jwt');
 const mongoose = require('mongoose');
 const config = require('config');
+const i18n = require('i18n');                                           
 const JwtKey = config.get('secret.key');
 const defineAbilities = require('./abilities');
 
@@ -26,7 +27,7 @@ const permissionsRouter = require('./routes/permissions');
 
 var app = express();
 //  mongodb://<dbUser>?:<dbPass>?@<url>:<port>/<dbName>
-const url = config.get('dbchain": "mongodb://localhost:27017/video-club');
+const url = config.get('dbchain');
 mongoose.connect(url);
 
 const db = mongoose.connection;
@@ -41,6 +42,12 @@ db.on('error', () => {
   console.log("Connection Failed");
 });
 
+i18n.configure({
+  locales: ['es', 'en'],
+  cookie: 'language',
+  directory: `${__dirname}/locales`
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -50,6 +57,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(i18n.init);
 
 app.use(expressjwt({secret:JwtKey, algorithms:['HS256']})
    .unless({path:["/login/"]}));
