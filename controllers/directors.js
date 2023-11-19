@@ -35,10 +35,8 @@ function list(req, res, next) {
     // estan buscando todos los documentos sin ningun filtro especifico, y el siguiente parametro "options" son las opciones
     // para personalizar la paginacion
     Director.paginate({}, options)
-            .then(objects => res.status(200).json({
-                message: "Directors list",
-                obj: objects
-            })).catch(ex => res.status(500).json({
+            .then(objects => res.render('directors/list', { directors : objects }))
+            .catch(ex => res.status(500).json({
                 message: "Directors list could not be showed",
                 obj: ex
             }));
