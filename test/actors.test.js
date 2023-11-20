@@ -2,12 +2,12 @@ const supertest = require('supertest');
 
 const app = require('../app');
 
-describe("Probar el sistema de autenticacion", () => {
-    it("Obtener un login correcto", (done) => {
-        supertest(app).post('/login/')
+describe("Probar el controlador de Actores", () => {
+    it("Deberia crear un Actor", (done) => {
+        supertest(app).post('/actors')
         .send({
-            "email": "jaredfm24@gmail.com",
-            "password": "abcd1234"
+            "name": "Bradd",
+            "lastName": "Pitt"
         })
         .expect(200)
         .end(function(err, res) {

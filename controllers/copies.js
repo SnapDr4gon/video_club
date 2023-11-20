@@ -20,10 +20,10 @@ function create(req, res, next) {
 
     copy.save()
         .then(object => res.status(200).json({
-            message: "New Copy created and saved",
+            message: res.__('copy.create.ok'),
             obj: object
         })).catch(ex => res.status(500).json({
-            message: "Copy could not be created or saved",
+            message: res.__('copy.create.wrong'),
             obj: ex
         }));
 }
@@ -39,10 +39,10 @@ function list(req, res, next) {
 
     Copy.paginate({}, options)
         .then(objects => res.status(200).json({
-            message: "Copies list",
+            message: res.__('copy.list.ok'),
             obj: objects
         })).catch(ex => res.status(500).json({
-            message: "Copies could not be showed",
+            message: res.__('copy.list.wrong'),
             obj: ex
         }));
 }
@@ -53,10 +53,10 @@ function index(req, res, next) {
 
     Copy.findOne({ "_id" : id })
         .then(object => res.status(200).json({
-            message: `Information of the Copy with id ${id}`,
+            message: res.__('copy.index.ok'),
             obj: object
         })).catch(ex => res.status(500).json({
-            message: `Could not show the information of the Copy with id ${id}`,
+            message: res.__('copy.index.wrong'),
             obj: ex
         }));
 }
@@ -87,10 +87,10 @@ function replace(req, res, next) {
 
     Copy.findOneAndUpdate({ "_id" : id }, copy, { new : true })
         .then(object => res.status(200).json({
-            message: "Copy replaced correctly",
+            message: res.__('copy.replace.ok'),
             obj: object
         })).catch(ex => res.status(500).json({
-            message: "Could not replace Copy correctly",
+            message: res.__('copy.replace.wrong'),
             obj: ex
         }));
 }
@@ -118,10 +118,10 @@ function update(req, res, next) {
 
     Copy.findOneAndUpdate({ "_id" : id }, copy)
         .then(object => res.status(200).json({
-            message: "Copy updated correctly",
+            message: res.__('copy.update.ok'),
             obj: object
         })).catch(ex => res.status(500).json({
-            message: "Could not update Copy correctly",
+            message: res.__('copy.update.wrong'),
             obj: ex
         }));
 }
@@ -131,10 +131,10 @@ function destroy(req, res, next) {
 
     Copy.findOneAndRemove({ "_id" : id })
         .then(object => res.status(200).json({
-            message: "Copy deleted correctly",
+            message: res.__('copy.destroy.ok'),
             obj: object
         })).catch(ex => res.status(500).json({
-            message: "Could not delete Copy correctly",
+            message: res.__('copy.destroy.wrong'),
             obj: ex
         }));
 }

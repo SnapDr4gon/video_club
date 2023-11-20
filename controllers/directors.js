@@ -13,10 +13,10 @@ function create(req, res, next) {
 
     director.save()
             .then(object => res.status(200).json({
-                message: "New Director created and saved",
+                message: res.__('directors.create.ok'),
                 obj: object
             })).catch(ex => res.status(500).json({
-                message: "Director could not be created or saved",
+                message: res.__('directors.create.wrong'),
                 obj: ex
             }));
 }
@@ -36,10 +36,10 @@ function list(req, res, next) {
     // para personalizar la paginacion
     Director.paginate({}, options)
             .then(objects => res.status(200).json({
-                message: "Directors list",
+                message: res.__('directors.list.ok'),
                 obj: objects
             })).catch(ex => res.status(500).json({
-                message: "Directors list could not be showed",
+                message: res.__('directors.list.wrong'),
                 obj: ex
             }));
 } 
@@ -50,10 +50,11 @@ function index(req, res, next) {
 
     Director.findOne({ "_id" : id })
             .then(object => res.status(200).json({
-                message: `Information of the Director with id ${id}`,
+                message: res.__('directors.index.ok'),
                 obj: object
             })).catch(ex => res.status(500).json({
-                message: `Could not show the information of the Director with id ${id}`
+                message: res.__('directors.index.wrong'),
+                obj: ex
             }));
 }
 
@@ -73,10 +74,10 @@ function replace(req, res, next) {
     // de actualizarlo
     Director.findOneAndUpdate({ "_id" : id }, director, { new : true })
             .then(object => res.status(200).json({
-                message: "Director replaced correctly",
+                message: res.__('directors.replace.ok'),
                 obj: object
             })).catch(ex => res.status(500).json({
-                message: "Could not replace Director correctly",
+                message: res.__('directors.replace.wrong'),
                 obj: ex
             }));
 }
@@ -96,10 +97,10 @@ function update(req, res, next) {
     // y no todo el objeto en si como put, entonces no es necesario devolver el recuros completo, con un mensaje es suficiente
     Director.findOneAndUpdate({ "_id" : id }, director)
             .then(object => res.status(200).json({
-                message: "Director updated correctly",
+                message: res.__('directors.update.ok'),
                 obj: object
             })).catch(ex => res.status(500).json({
-                message: "Could not update Director correctly",
+                message: res.__('directors.update.wrong'),
                 obj: ex
             }));
 }
@@ -110,10 +111,10 @@ function destroy(req, res, next) {
 
     Director.findByIdAndRemove({ "_id" : id })
             .then(object => res.status(200).json({
-                message: "Director deleted correctly",
+                message: res.__('directors.destroy.ok'),
                 obj: object
             })).catch(ex => res.status(500).json({
-                message: "Could not delete Director correctly",
+                message: res.__('directors.destroy.wrong'),
                 obj: ex
             }));
 }

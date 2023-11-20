@@ -11,10 +11,10 @@ function create(req, res, next) {
 
     genre.save()
          .then(object => res.status(200).json({
-            message: "New Genre created and saved",
+            message: res.__('genre.create.ok'),
             obj: object
          })).catch(ex => res.status(500).json({
-            message: "Genre could not be created or saved",
+            message: res.__('genre.create.wrong'),
             obj: ex
          }));
 }
@@ -30,10 +30,10 @@ function list(req, res, next) {
 
     Genre.paginate({}, options)
          .then(objects => res.status(200).json({
-            message: "Genres list",
+            message: res.__('genre.list.ok'),
             obj: objects
          })).catch(ex => res.status(500).json({
-            message: "Genres list could not be showed",
+            message: res.__('genre.list.wrong'),
             obj: ex
          }));
 }
@@ -44,10 +44,10 @@ function index(req, res, next) {
 
     Genre.findOne({ "_id" : id })
          .then(object => res.status(200).json({
-            message: `Information of the Genre with id ${id}`,
+            message: res.__('genre.index.ok'),
             obj: object
          })).catch(ex => res.status(500).json({
-            message: `Could not show the information of the Genre with id ${id}`,
+            message: res.__('genre.index.wrong'),
             obj: ex
          }));
 }
@@ -64,10 +64,10 @@ function replace(req, res, next) {
 
     Genre.findOneAndUpdate({ "_id" : id }, genre, { new : true })
          .then(object => res.status(200).json({
-            message: "Genre replace correctly",
+            message: res.__('genre.replace.ok'),
             obj: object
          })).catch(ex => res.status(500).json({
-            message: "Could not replace Genre correctly",
+            message: res.__('genre.replace.wrong'),
             obj: ex
          }));
 }
@@ -84,10 +84,10 @@ function update(req, res, next) {
 
     Genre.findOneAndUpdate({ "_id" : id }, genre)
          .then(object => res.status(200).json({
-            message: "Genre updated correctly",
+            message: res.__('genre.update.ok'),
             obj: object
          })).catch(ex => res.status(500).json({
-            message: "Could not update Genre correctly",
+            message: res.__('genre.update.wrong'),
             obj: ex
          }));
 }
@@ -98,10 +98,10 @@ function destroy(req, res, next) {
 
     Genre.findOneAndRemove({ "_id" : id })
          .then(object => res.status(200).json({
-            message: "Genre deleted correctly",
+            message: res.__('genre.destroy.ok'),
             obj: object
          })).catch(ex => res.status(500).json({
-            message: "Could not delete Genre correctly",
+            message: res.__('genre.destroy.wrong'),
             obj: ex
          }));
 }

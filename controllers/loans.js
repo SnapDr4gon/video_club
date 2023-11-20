@@ -19,10 +19,10 @@ function create(req, res, next) {
 
     loan.save()
         .then(object => res.status(200).json({
-            message: "New loan created and saved",
+            message: res.__('loan.create.ok'),
             obj: object
         })).catch(ex => res.status(500).json({
-            message: "Loan could not created or saved",
+            message: res.__('loan.create.wrong'),
             obj: ex
         }));
 }
@@ -39,10 +39,10 @@ function list(req, res, next) {
 
     Loan.paginate({}, options)
         .then(objects => res.status(200).json({
-            message: "Loans list",
+            message: res.__('loan.list.ok'),
             obj: objects
         })).catch(ex => res.status(500).json({
-            message: "Loans list could not be showed",
+            message: res.__('loan.list.wrong'),
             obj: ex
         }));
 }
@@ -53,10 +53,10 @@ function index(req, res, next) {
 
     Loan.findOne({ "_id" : id }).populate(["_member", "_copy"])
         .then(object => res.status(200).json({
-            message: `Information of the Loan with id ${id}`,
+            message: res.__('loan.index.ok'),
             obj: object
         })).catch(ex => res.status(500).json({
-            message: `Could not show the information of the Loan with id ${id}`,
+            message: res.__('loan.index.wrong'),
             obj: ex
         }));
 }
@@ -81,14 +81,11 @@ function replace(req, res, next) {
 
     Loan.findOneAndUpdate({ "_id" : id }, loan, { new : true })
         .then(object => res.status(200).json({
-            message: "Loan replaced correctly",
+            message: res.__('loan.replace.ok'),
             obj: object
         })).catch(ex => res.status(500).json({
-            message: "Loan replaced correctly",
+            message: res.__('loan.replace.wrong'),
             obj: object
-        })).catch(ex => res.status(500).json({
-            message: "Could not replace Loan correctly",
-            obj: ex
         }));
 }
 

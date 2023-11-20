@@ -18,10 +18,10 @@ function create(req, res, next) {
 
     movie.save()
          .then(object => res.status(200).json({
-            message: "New movie created and saved",
+            message: res.__('movie.create.ok'),
             obj: object
          })).catch(ex => res.status(500).json({
-            message: "Movie could not be created or saved",
+            message: res.__('movie.create.wrong'),
             obj: ex
          }));
 }
@@ -37,10 +37,10 @@ function list(req, res, next) {
 
     Movie.paginate({}, options)
          .then(objects => res.status(200).json({
-            message: "Movies list",
+            message: res.__('movie.list.ok'),
             obj: objects
          })).catch(ex => res.status(500).json({
-            message: "Movies list could not be showed",
+            message: res.__('movie.list.wrong'),
             obj: ex
          }));
 }
@@ -50,10 +50,10 @@ function index(req, res, next) {
 
     Movie.findOne({ "_id" : id }).populate(["_director", "_genre", "_cast"])
         .then(object => res.status(200).json({
-            message: `Information of the Movie with id ${id}`,
+            message: res.__('movie.index.ok'),
             obj: object
         })).catch(ex => res.status(500).json({
-            message: `Could not show the information of the Movie with id ${id}`,
+            message: res.__('movie.index.wrong'),
             obj: ex
         }));
 }
@@ -88,10 +88,10 @@ function replace(req, res, next) {
 
     Movie.findOneAndUpdate({ "_id" : id }, movie, { new : true })
          .then(object => res.status(200).json({
-            message: "Movie replaced correctly",
+            message: res.__('movie.replace.ok'),
             obj: object
          })).catch(ex => res.status(500).json({
-            message: "Could not replaced Movie correctly",
+            message: res.__('movie.replace.wrong'),
             obj: ex
          }));
 }
@@ -125,10 +125,10 @@ function update(req, res, next) {
 
     Movie.findOneAndUpdate({ "_id" : id }, movie)
          .then(object => res.status(200).json({
-            message: "Movie updated correctly",
+            message: res.__('movie.update.ok'),
             obj: object
          })).catch(ex => res.status(500).json({
-            message: "Could not update Movie correctly",
+            message: res.__('movie.update.wrong'),
             obj: ex
          }));
 }
@@ -138,10 +138,11 @@ function destroy(req, res, next) {
 
     Movie.findOneAndRemove({ "_id" : id })
          .then(object => res.status(200).json({
-            message: "Movie deleted correctly",
+            message: res.__('movie.destroy.ok'),
             obj: object
          })).catch(ex => res.status(500).json({
-            message: "Could not delete Movie correctly"
+            message: res.__('movie.destroy.wrong'),
+            obj: ex
          }));
 }
 

@@ -9,7 +9,7 @@ async function create(req, res, next) {
     const email = req.body.email;
     const password = req.body.password;
     let salt = await bcrypt.genSalt(10);
-    const profiles = req.body.profiles;
+    //const profiles = req.body.profiles;
 
     const passwordHash = await bcrypt.hash(password, salt);
 
@@ -19,15 +19,15 @@ async function create(req, res, next) {
         email: email,
         password: passwordHash,
         salt: salt,
-        profiles: profiles
+        //profiles: profiles
     });
 
     user.save()
         .then(object => res.status(200).json({
-            message: "New User created and saved",
+            message: res.__('user.create.ok'),
             obj: object
         })).catch(ex => res.status(500).json({
-            message: "User could not be created or saved",
+            message: res.__('user.create.wrong'),
             obj: ex
         }));
 }
@@ -43,10 +43,10 @@ function list(req, res, next) {
 
     User.paginate({}, options)
         .then(objects => res.status(200).json({
-            message: "Users list",
+            message: res.__('user.list.ok'),
             obj: objects
         })).catch(ex => res.status(500).json({
-            message: "Users list could not be showed",
+            message: res.__('user.list.wrong'),
             obj: ex
         }));
 }
@@ -57,10 +57,10 @@ function index(req, res, next) {
 
     User.findOneAndUpdate({ "_id" : id })
         .then(object => res.status(200).json({
-            message: `Information of the User with the id ${id}`,
+            message: res.__('user.index.ok'),
             obj: object
         })).catch(ex => res.status(500).json({
-            message: `Could not show the information of the User with id ${id}`,
+            message: res.__('user.index.wrong'),
             obj: ex
         }));
 }
@@ -85,10 +85,10 @@ function replace(req, res, next) {
 
     User.findOneAndUpdate({ "_id" : id }, user, { new : true })
         .then(object => res.status(200).json({
-            message: "User replaced correctly",
+            message: res.__('user.replace.ok'),
             obj: object
         })).catch(ex => res.status(500).json({
-            message: "Could not replace User correctly",
+            message: res.__('user.replace.wrong'),
             obj: ex
         }));
 }
@@ -113,10 +113,10 @@ function update(req, res, next) {
 
     User.findOneAndUpdate({ "_id" : id}, user)
         .then(object => res.status(200).json({
-            message: "User updated correctly",
+            message: res.__('user.update.ok'),
             obj: object
         })).catch(ex => res.status(500).json({
-            message: "Could not update User correctly",
+            message: res.__('user.update.wrong'),
             obj: ex
         }));
 }
@@ -127,10 +127,10 @@ function destroy(req, res, next) {
 
     User.findOneAndRemove({ "_id" : id })
         .then(object => res.status(200).json({
-            message: "User deleted correctly",
+            message: res.__('user.destroy.ok'),
             obj: object
         })).catch(ex => res.status(500).json({
-            message: "Could not delete User correctly",
+            message: res.__('user.destroy.wrong'),
             obj: ex
         }));
 }

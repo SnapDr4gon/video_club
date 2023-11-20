@@ -13,10 +13,10 @@ function create(req, res, next) {
 
     actor.save()
             .then(object => res.status(200).json({
-                message: "New Actor created and saved",
+                message: res.__('actor.create.ok'),
                 obj: object
             })).catch(ex => res.status(500).json({
-                massage: "Actor could not be created or saved",
+                massage: res.__('actor.create.wrong'),
                 obj: ex
             }));
 }
@@ -32,10 +32,10 @@ function list(req, res, next) {
 
     Actor.paginate({}, options)
             .then(objects => res.status(200).json({
-                message: "Actors list",
+                message: res.__('actor.list.ok'),
                 obj: objects
             })).catch(ex => res.status(500).json({
-                message: "Actors list could not be showed",
+                message: res.__('actor.list.wrong'),
                 obj: ex
             }));
 }
@@ -45,10 +45,10 @@ function index(req, res, next) {
   
     Actor.findOne({ "_id" : id })
            .then(object => res.status(200).json({
-              message: `Information of the Actor with id ${id}`,
+              message: res.__('actor.index.ok'),
               obj: object
            })).catch(ex => res.status(500).json({
-              message: `Could not show the information of the Actor with id ${id}`,
+              message: res.__('actor.list.wrong'),
              obj: ex
            }));
 }
@@ -67,10 +67,10 @@ function replace(req, res, next) {
     
     Actor.findOneAndUpdate({ "_id" : id }, actor, { new : true })
             .then(object => res.status(200).json({
-                message: "Actor replaced correctly",
+                message: res.__('actor.replace.ok'),
                 obj: object
             })).catch(ex => res.status(500).json({
-                message: "Could not replace Actor correctly",
+                message: res.__('actor.replace.wrong'),
                 obj: ex
             }));
 }
@@ -89,10 +89,10 @@ function update(req, res, next) {
   
     Actor.findOneAndUpdate({ "_id" : id })
             .then(object => res.status(200).json({
-                message: "Actor updated correctly",
+                message: res.__('actor.update.ok'),
                 obj: object
             })).catch(ex => res.status(500).json({
-                message: "Could not update Actor correctly",
+                message: res.__('actor.update.wrong'),
                 obj: ex
             }));
 }
@@ -103,10 +103,10 @@ function destroy(req, res, next) {
 
     Actor.findByIdAndRemove({ "_id" : id })
             .then(object => res.status(200).json({
-                message: "Actor deleted correctly",
+                message: res.__('actor.destroy.ok'),
                 obj: object
             })).catch(ex => res.status(500).json({
-                message: "Could not delete Actor correctly",
+                message: res.__('actor.destroy.wrong'),
                 obj: ex
             }));
 }

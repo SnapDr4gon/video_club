@@ -1,5 +1,6 @@
 const express = require('express');
 const List = require('../models/list');
+const _ = require('mongoose-paginate-v2');
 
 //post
 function create(req, res, next) {
@@ -17,10 +18,10 @@ function create(req, res, next) {
 
     turn.save()
         .then(object => res.status(200).json({
-            message: "New Turn created and saved correctly",
+            message: res.__('turn.create.ok'),
             obj: object
         })).catch(ex => res.status(500).json({
-            message: "Turn could not be created or saved",
+            message: res.__('turn.create.wrong'),
             obj: ex
         }));
 }
@@ -37,10 +38,11 @@ function list(req, res, next) {
 
     List.paginate({}, options)
         .then(objects => res.status(200).json({
-            message: "Waiting list",
+            message: res.__('turn.list.ok'),
             obj: objects
         })).catch(ex => res.status(500).json({
-            message: "Waiting list could not be showed"
+            message: res.__('turn.list.wrong'),
+            obj: ex
         }));
 }
 
@@ -50,10 +52,10 @@ function index(req, res, next) {
 
     List.findOne({ "_id" : id }).populate(["_member", "_movie"])
         .then(object => res.status(200).json({
-            message: `Information of the Turn with id ${id}`,
+            message: res.__('turn.index.ok'),
             obj: object
         })).catch(ex => res.status(500).json({
-            message: `Could not show the information of the Turn with id ${id}`,
+            message: res.__('turn.index.wrong'),
             obj: ex
         }));
 }
@@ -76,10 +78,10 @@ function replace(req, res, next) {
 
     List.findOneAndUpdate({ "_id" : id }, turn, { new : true })
         .then(object => res.status(200).json({
-            message: "Turn replaced correctly",
+            message: res.__('turn.replace.ok'),
             obj: object
         })).catch(ex => res.status(500).json({
-            message: "Could not replace Turn correctly",
+            message: res.__('turn.replace.wrong'),
             obj: ex
         }));
 }
@@ -102,10 +104,10 @@ function update(req, res, next) {
 
     List.findOneAndUpdate({ "_id" : id }, turn)
         .then(object => res.status(200).json({
-            message: "Turn updated correctly",
+            message: res.__('turn.update.ok'),
             obj: object
         })).catch(ex => res.status(500).json({
-            message: "Could not update Turn correctly",
+            message: res.__('turn.update.wrong'),
             obj: ex
         }));
 }
@@ -116,10 +118,10 @@ function destroy(req, res, next) {
 
     List.findOneAndRemove({ "_id" : id })
         .then(object => res.status(200).json({
-            message: "Turn deleted correctly",
+            message: res.__('turn.destroy.ok'),
             obj: object
         })).catch(ex => res.status(500).json({
-            message: "Could not delete Turn correctly",
+            message: res.__('turn.destroy.wrong'),
             obj: ex
         }));
 }

@@ -21,10 +21,10 @@ function create(req, res, next) {
 
     member.save()
           .then(object => res.status(200).json({
-            message: "New Member created and saved",
+            message: res.__('member.create.ok'),
             obj: object
           })).catch(ex => res.status(500).json({
-            message: "Memeber could not be created or saved",
+            message: res.__('member.create.wrong'),
             obj: ex
           }));
 }
@@ -41,10 +41,10 @@ function list(req, res, next) {
 
     Member.paginate({}, options)
           .then(objects => res.status(200).json({
-            message: "Members list",
+            message: res.__('member.list.ok'),
             obj: objects
           })).catch(ex => res.status(500).json({
-            message: "Members list could not be showed",
+            message: res.__('member.list.wrong'),
             obj: ex
           }));
 }
@@ -55,10 +55,10 @@ function index(req, res, next) {
 
     Member.findOne({ "_id" : id }).populate(["_favoriteActors", "_favoriteDirectors"])
           .then(object => res.status(200).json({
-            message: `Information of the Member with id ${id}`,
+            message: res.__('member.index.ok'),
             obj: object
           })).catch(ex => res.status(500).json({
-            message: `Could not show the information of the Member with id ${id}`,
+            message: res.__('member.index.wrong'),
             obj: ex
           }));
 }
@@ -85,10 +85,10 @@ function replace(req, res, next) {
 
     Member.findOneAndUpdate({ "_id" : id }, member, { new : true })
           .then(object => res.status(200).json({
-            message: "Member replaced correctly",
+            message: res.__('member.replace.ok'),
             obj: object
           })).catch(ex => res.status(500).json({
-            message: "Could not replace Member correctly",
+            message: res.__('member.replace.wrong'),
             obj: ex
           }));
 }
@@ -115,10 +115,10 @@ function update(req, res, next) {
 
     Member.findOneAndUpdate({ "_id" : id }, member)
           .then(object => res.status(200).json({
-            message: "Member updated correctly",
+            message: res.__('member.update.ok'),
             obj: object
           })).catch(ex => res.status(500).json({
-            message: "Could not update Member correctly",
+            message: res.__('member.update.wrong'),
             obj: ex
           }));
 }
@@ -128,10 +128,10 @@ function destroy(req, res, next) {
 
     Member.findOneAndRemove({ "_id" : id })
           .then(object => res.status(200).json({
-            message: "Member deleted correctly",
+            message: res.__('member.destroy.ok'),
             obj: object
           })).catch(ex => res.status(500).json({
-            message: "Could not delete Member correctly",
+            message: res.__('member.destroy.wrong'),
             obj: ex
           }));
 }
